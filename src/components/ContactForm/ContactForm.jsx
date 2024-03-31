@@ -1,27 +1,31 @@
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { ErrorMessage } from 'formik';
-import css from './ContactForm.module.css';
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { ErrorMessage } from "formik";
+import css from "./ContactForm.module.css";
+import { addContact } from "../../redux/contactsSlice";
+import { useDispatch } from "react-redux";
 
 const INITIAL_FORM_DATA = {
-  name: '',
-  number: '',
+  name: "",
+  number: "",
 };
 
 const contactSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(3, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   number: Yup.string()
-    .min(3, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(3, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
 });
 
-const ContactForm = ({ onAddNewContact }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+
   const handleSubmit = (data, formActions) => {
-    onAddNewContact(data);
+    dispatch(addContact(data));
     formActions.resetForm();
   };
 

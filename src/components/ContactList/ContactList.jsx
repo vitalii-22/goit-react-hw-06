@@ -1,12 +1,25 @@
-import Contact from '../Contact/Contact';
-import css from './ContactList.module.css';
+import { useSelector } from "react-redux";
+import Contact from "../Contact/Contact";
+import css from "./ContactList.module.css";
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const getVisibleContacts = (arrContacts, filter) => {
+  console.log("filter: ", filter);
+  console.log(arrContacts);
+  return arrContacts.filter((task) => task.name !== filter);
+};
+
+const ContactList = () => {
+  const contacts = useSelector((state) => state.contacts.contacts.items);
+  const selectNameFilter = useSelector((state) => state.filters.filters.name);
+
+  const visibleTasks = getVisibleContacts(contacts, selectNameFilter);
+
+  // const contacts = useSelector((state) => state.contacts.contacts.items);
   return (
     <ul className={css.contactList}>
-      {contacts.map(contact => (
+      {contacts.map((contact) => (
         <li className={css.contactItem} key={contact.id}>
-          <Contact {...contact} onDeleteContact={onDeleteContact} />
+          <Contact {...visibleTasks} />
         </li>
       ))}
     </ul>

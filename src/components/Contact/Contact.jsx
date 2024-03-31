@@ -1,8 +1,11 @@
-import { FiPhone } from 'react-icons/fi';
-import { FiUser } from 'react-icons/fi';
-import css from './Contact.module.css';
+import { FiPhone } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
+import css from "./Contact.module.css";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
 
-const Contact = ({ id, name, number, onDeleteContact }) => {
+const Contact = ({ id, name, number }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <div className={css.contactWrapper}>
@@ -16,7 +19,7 @@ const Contact = ({ id, name, number, onDeleteContact }) => {
       </div>
 
       <button
-        onClick={() => onDeleteContact(id)}
+        onClick={() => dispatch(deleteContact(id))}
         className={css.deleteButton}
         type="button"
       >

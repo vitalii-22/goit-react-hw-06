@@ -3,7 +3,6 @@ import "./App.css";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
-import { nanoid } from "nanoid";
 
 function App() {
   const [contacts, setContacts] = useState(() => {
@@ -25,23 +24,11 @@ function App() {
     window.localStorage.setItem("contacts-key", JSON.stringify(contacts));
   }, [contacts]);
 
-  const onAddNewContact = (contactData) => {
-    const finalContact = {
-      ...contactData,
-      id: nanoid(),
-    };
-    setContacts([...contacts, finalContact]);
-  };
-
-  const handleDelete = (contactDataId) => {
-    setContacts(contacts.filter((contact) => contact.id !== contactDataId));
-  };
-
   const [searchName, setSearchName] = useState("");
 
   const handleSearchChange = (evt) => {
     setSearchName(evt.target.value.toLowerCase());
-    console.log(getFilteredContacts());
+    console.log(evt.target.value.toLowerCase());
   };
 
   const getFilteredContacts = () => {
@@ -54,12 +41,9 @@ function App() {
     <div>
       <h1 className="title">Phonebook</h1>
 
-      <ContactForm contacts={contacts} onAddNewContact={onAddNewContact} />
-      <SearchBox onChange={handleSearchChange} searchName={searchName} />
-      <ContactList
-        contacts={getFilteredContacts()}
-        onDeleteContact={handleDelete}
-      />
+      <ContactForm />
+      <SearchBox onChange={handleSearchChange} />
+      <ContactList contacts={getFilteredContacts()} />
     </div>
   );
 }
