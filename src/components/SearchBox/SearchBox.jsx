@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { filtersSliceReducer } from "../../redux/filtersSlice";
+import { useDispatch } from "react-redux";
+import { changeFilter } from "../../redux/filtersSlice";
 import css from "./SearchBox.module.css";
 
-const SearchBox = ({ onChange }) => {
+const SearchBox = () => {
   const dispatch = useDispatch();
 
   return (
@@ -13,7 +13,7 @@ const SearchBox = ({ onChange }) => {
         type="text"
         name="name"
         onChange={(evt) =>
-          dispatch(filtersSliceReducer(evt.target.value.toLowerCase()))
+          dispatch(changeFilter(evt.target.value.toLowerCase()))
         }
       />
     </label>
