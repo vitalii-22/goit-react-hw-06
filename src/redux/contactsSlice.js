@@ -15,7 +15,6 @@ const contactsSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
-        console.log(state.items);
         state.items = [...state.items, action.payload];
       },
       prepare(text) {
